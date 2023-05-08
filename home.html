@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+</head>
+<style>
+    body {
+        background-color: rgba(19, 212, 125, 0.449);
+    }
+
+    .profile {
+        display: flex;
+        align-items: center;
+        margin: 20px;
+    }
+
+    .profile img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+
+    .profile h2 {
+        margin: 0;
+    }
+
+    .profile p {
+        margin: 5px 0;
+    }
+
+    .profile a {
+        display: block;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #0366d6;
+        text-decoration: none;
+    }
+
+    button {
+        background-color: rgba(19, 212, 125, 0.449);
+        float: right;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    button:hover {
+        background-color: whitesmoke;
+    }
+
+    .tit {
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+
+    .des {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+
+    #des {
+        float: right;
+    }
+</style>
+
+<body>
+    <div id="root"></div>
+    <button id="newpost">Create new Post</button>
+    <div id="des"></div>
+    <h2 id="W"></h2>
+    <p id="E"></p>
+</body>
+<script>
+    const root = document.getElementById('root');
+    const username = 'Sohail5158';
+    fetch(`https://api.github.com/users/${username}`)
+        .then(response => response.json())
+        .then(data => {
+            const { name, login, avatar_url, bio, html_url } = data;
+
+            const profile = `
+      <div class="profile">
+        <img src="${avatar_url}" alt="${login}" />
+        <div class="info">
+          <h2>${name}</h2>
+          <p>${bio}</p>
+          <a href="${html_url}" target="_blank">@${login}</a>
+        </div>
+      </div>
+    `;
+            root.innerHTML = profile;
+        });
+
+    let btn = document.getElementById('newpost');
+    btn.addEventListener("click", function () {
+        // creating a new post
+        let D = document.getElementById("des");
+        let title = document.createElement('input');
+        title.placeholder = 'Title';
+        title.setAttribute("class", "tit");
+        D.appendChild(title);
+        var mybr = document.createElement('br');
+        D.appendChild(mybr);
+        let description = document.createElement('input');
+        description.placeholder = 'Description';
+        description.setAttribute("class", "des");
+        D.appendChild(description);
+        let bt = document.createElement('button');
+        bt.innerText = "submit"
+        D.appendChild(bt);
+        bt.addEventListener("click", function () {
+            //reflecting the post
+            let T=document.getElementById("W");
+            T.innerHTML=title.value;
+            let S=document.getElementById("E");
+            E.innerHTML=description.value;
+        })
+    })
+</script>
+
+</html>
